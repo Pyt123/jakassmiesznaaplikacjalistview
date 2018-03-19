@@ -1,8 +1,7 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,8 +10,10 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -20,25 +21,35 @@ public class MainActivity extends AppCompatActivity
     private ListView listView;
     private ArrayAdapter arrayAdapter;
 
-    public static String[] data = {"no", "witam", "witam", "tajger", "sejsony", "ogunie"};
+    public static List<Person> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setToolbar();
+        //Intent intent = new Intent(this, AddingItemActivity.class);
+        //startActivity(intent);
+        setupToolbar();
+
+        initData();
+
 
         listView = findViewById(R.id.list_view);
-        arrayAdapter = new PersonAdapter(getApplicationContext(), /*id row layout*/, /*data list*/);
+        arrayAdapter = new PersonAdapter(getApplicationContext(), R.layout.row, data);
         listView.setAdapter(arrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            public void onItemClick(AdapterView<?> adapterView, View clickedRow, int i, long l)
             {
-                Toast.makeText(getApplicationContext(), "Clicked item " + i, Toast.LENGTH_SHORT).show();
+                TextView name = clickedRow.findViewById(R.id.name);
+                TextView surname = clickedRow.findViewById(R.id.surname);
+                TextView date = clickedRow.findViewById(R.id.date_input);
+                Toast.makeText(getApplicationContext(),
+                        name.getText() + " " + surname.getText() + "\n" + date.getText(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -63,9 +74,14 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void initData()
+    {
+        data = new LinkedList<>();
+        data.add(new Person("Jan", "Kowalski", "2007, 3, 29"));
+        data.add(new Person("Albert", "Abacki", "2007, 12, 19"));
+    }
 
-
-    private void setToolbar()
+    private void setupToolbar()
     {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

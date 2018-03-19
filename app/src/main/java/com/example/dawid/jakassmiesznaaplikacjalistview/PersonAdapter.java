@@ -1,13 +1,12 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -31,6 +30,16 @@ public class PersonAdapter extends ArrayAdapter<Person>
         LayoutInflater inflater = LayoutInflater.from(context);
 
         row = inflater.inflate(layoutResId, parent, false);
+
+        TextView nameView = row.findViewById(R.id.name);
+        TextView surnameView = row.findViewById(R.id.surname);
+        TextView dateView = row.findViewById(R.id.date_input);
+
+        Person person = data.get(position);
+
+        nameView.setText(person.getName());
+        surnameView.setText(person.getSurname());
+        dateView.setText(person.getDate());
 
         return row;
     }
