@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 public class AddingItemActivity extends AppCompatActivity
 {
+    private boolean isSavingAndGoingBack = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,14 +39,15 @@ public class AddingItemActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id)
         {
-            case R.id.save_item_button:
-                saveNewPerson();
-                finish();
-                return true;
             case android.R.id.home:
-                saveNewPerson();
-                finish();
-                return true;
+                if(!isSavingAndGoingBack)
+                {
+                    isSavingAndGoingBack = true;
+                    saveNewPerson();
+                    finish();
+                    return true;
+                }
+                break;
         }
 
         return super.onOptionsItemSelected(item);

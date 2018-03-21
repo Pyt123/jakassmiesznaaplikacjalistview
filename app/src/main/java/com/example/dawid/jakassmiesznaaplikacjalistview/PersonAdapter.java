@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class PersonAdapter extends ArrayAdapter<Person>
     }
 
     @Override
-    public View getView(int position, View row, ViewGroup parent)
+    public View getView(final int position, View row, ViewGroup parent)
     {
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -34,6 +35,18 @@ public class PersonAdapter extends ArrayAdapter<Person>
         TextView nameView = row.findViewById(R.id.name);
         TextView surnameView = row.findViewById(R.id.surname);
         TextView dateView = row.findViewById(R.id.date_input);
+        Button deleteButton = row.findViewById(R.id.delete_button);
+
+        deleteButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                data.remove(position);
+                notifyDataSetChanged();
+                //MainActivity.RemovePersonFromData(position);
+            }
+        });
 
         Person person = data.get(position);
 
