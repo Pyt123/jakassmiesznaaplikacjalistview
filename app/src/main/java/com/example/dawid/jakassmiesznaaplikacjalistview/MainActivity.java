@@ -19,21 +19,22 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
 {
     private ListView listView;
-    private ArrayAdapter arrayAdapter;
+    private ArrayAdapter arrayAdapter = null;
 
-    public static List<Person> data;
+    private static List<Person> data = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Intent intent = new Intent(this, AddingItemActivity.class);
-        //startActivity(intent);
         setupToolbar();
 
-        initData();
-
+        if(data == null)
+        {
+            data = new LinkedList<>();
+            initData();
+        }
 
         listView = findViewById(R.id.list_view);
         arrayAdapter = new PersonAdapter(getApplicationContext(), R.layout.row, data);
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.action_settings:
                 return true;
+            case R.id.add_button:
+                Intent intent = new Intent(this, AddingItemActivity.class);
+                startActivity(intent);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,7 +81,6 @@ public class MainActivity extends AppCompatActivity
 
     private void initData()
     {
-        data = new LinkedList<>();
         data.add(new Person("Jan", "Kowalski", "2007, 3, 29"));
         data.add(new Person("Albert", "Abacki", "2007, 12, 19"));
     }
@@ -85,5 +89,10 @@ public class MainActivity extends AppCompatActivity
     {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    public static void AddPersonToData(Person person)
+    {
+        data.add(person);
     }
 }
