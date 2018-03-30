@@ -2,22 +2,23 @@ package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener
 {
-    private RecyclerView recyclerView;
-    private static ArrayAdapter arrayAdapter = null;
+    private RecyclerView recyclerView = null;
+    private static RecyclerView.Adapter recyclerAdapter = null;
     private static List<Movie> data = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +34,17 @@ public class MainActivity extends AppCompatActivity
 
     private void setRecyclerViewListeners()
     {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
+    {
+        if (viewHolder instanceof MovieAdapter.Item)
+        {
+            removeMovieFromData(viewHolder.getAdapterPosition());
+        }
     }
 
     private void setupToolbar()
@@ -43,9 +55,10 @@ public class MainActivity extends AppCompatActivity
 
     private void setupAdapter()
     {
-        arrayAdapter = new MovieAdapter(getApplicationContext(), R.layout.movie_row, data);
-        recyclerView = findViewById(R.id.list_view);
-        recyclerView.setAdapter(arrayAdapter);
+        recyclerAdapter = new MovieAdapter(this, data);
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
@@ -71,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     private static void removeMovieFromData(int i)
     {
         data.remove(i);
-        arrayAdapter.notifyDataSetChanged();
+        recyclerAdapter.notifyDataSetChanged();
     }
 
     private void initSomeData()
@@ -87,6 +100,6 @@ public class MainActivity extends AppCompatActivity
             index  = (index + 1 + generator.nextInt(movies.length-1)) % movies.length;
             data.add(movies[index]);
         }
-        arrayAdapter.notifyDataSetChanged();
+        recyclerAdapter.notifyDataSetChanged();
     }
 }

@@ -1,7 +1,5 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
-import android.media.Image;
-
 public class Movie
 {
     private String name;
