@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener
 {
     private Context context = null;
     private List<Movie> data = null;
@@ -31,7 +32,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View row = inflater.inflate(R.layout.movie_row, parent, false);
         Item item = new Item(row);
 
-        setHolderEventListeners(item);
         return item;
     }
 
@@ -43,7 +43,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         item.nameView.setText(movie.getName());
         item.categoryView.setText(movie.getCategory());
         item.imageView.setImageResource(movie.getImageId());
-        //item.setActualPosition(position);
     }
 
     @Override
@@ -52,39 +51,18 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return data.size();
     }
 
-    private void setHolderEventListeners(final Item row)
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
     {
-        row.itemView.setOnDragListener(new View.OnDragListener()
+        if (viewHolder instanceof MovieAdapter.Item)
         {
-            @Override
-            public boolean onDrag(View view, DragEvent dragEvent)
-            {
-                int action = dragEvent.getAction();
-                switch (action)
-                {
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        data.remove(row.getLayoutPosition());
-                        notifyDataSetChanged();
-                        break;
-                    case DragEvent.ACTION_DRAG_ENDED:
-                        break;
-                }
-                return true;
-            }
-        });
-        row.itemView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(context, "fraś debil", Toast.LENGTH_LONG).show();
-            }
-        });
+            data.remove(viewHolder.getAdapterPosition());
+            notifyItemRemoved(viewHolder.getAdapterPosition());
+        }
     }
 
     public class Item extends RecyclerView.ViewHolder
     {
-        //private int position = -1;
         private TextView nameView;
         private TextView categoryView;
         private ImageView imageView;
@@ -96,15 +74,5 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             categoryView = itemView.findViewById(R.id.category);
             imageView = itemView.findViewById(R.id.movie_image);
         }
-
-       /* private void setActualPosition(int pos)
-        {
-            position = pos;
-        }
-
-        private int getActualPosition()
-        {
-            return position;
-        }*/
     }
 }
