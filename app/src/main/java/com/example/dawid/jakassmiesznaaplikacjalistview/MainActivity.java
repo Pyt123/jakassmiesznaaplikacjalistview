@@ -1,26 +1,23 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    private ListView listView;
+    private RecyclerView recyclerView;
     private static ArrayAdapter arrayAdapter = null;
-    private static List<Person> data = new ArrayList<>();
+    private static List<Movie> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,24 +26,26 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         setupToolbar();
+        setupAdapter();
+        initSomeData();
+        setRecyclerViewListeners();
+    }
 
-        listView = findViewById(R.id.list_view);
-        arrayAdapter = new PersonAdapter(getApplicationContext(), R.layout.row, data);
-        listView.setAdapter(arrayAdapter);
+    private void setRecyclerViewListeners()
+    {
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View clickedRow, int i, long l)
-            {
-                TextView name = clickedRow.findViewById(R.id.name);
-                TextView surname = clickedRow.findViewById(R.id.surname);
-                TextView date = clickedRow.findViewById(R.id.date_input);
-                Toast.makeText(getApplicationContext(),
-                        name.getText() + " " + surname.getText() + "\n" + date.getText(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void setupToolbar()
+    {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupAdapter()
+    {
+        arrayAdapter = new MovieAdapter(getApplicationContext(), R.layout.movie_row, data);
+        recyclerView = findViewById(R.id.list_view);
+        recyclerView.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -64,39 +63,29 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.action_settings:
                 return true;
-            case R.id.add_button:
-                Intent intent = new Intent(this, AddingItemActivity.class);
-                startActivity(intent);
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupToolbar()
-    {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    public static void AddPersonToData(Person person)
-    {
-        data.add(person);
-        arrayAdapter.notifyDataSetChanged();
-    }
-
-    public static void RemovePersonFromData(int i)
+    private static void removeMovieFromData(int i)
     {
         data.remove(i);
         arrayAdapter.notifyDataSetChanged();
     }
 
-    private void initData()
+    private void initSomeData()
     {
-        Person p = new Person("d", "s", "2137");
+        Movie [] movies = { new Movie("Trailer Park Boys", "comedy", R.drawable.ricky),
+                            new Movie("Kapitan Bomba", "sci-fi", R.drawable.kapitan_bomba),
+                            new Movie("The Naked Gun", "comedy", R.drawable.leslie_nielsen)};
+
+        Random generator = new Random();
+        int index = 0;
         for(int i = 0; i < 15; i ++)
         {
-            data.add(p);
+            index  = (index + 1 + generator.nextInt(movies.length-1)) % movies.length;
+            data.add(movies[index]);
         }
         arrayAdapter.notifyDataSetChanged();
     }

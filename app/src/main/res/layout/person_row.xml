@@ -7,6 +7,19 @@
     android:layout_height="wrap_content"
     android:background="@color/pompeian_pink">
 
+    <ImageView
+        android:id="@+id/actor_pic"
+        android:layout_width="192dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ricky" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -17,12 +30,12 @@
         android:gravity="center"
         android:text="imię"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/surname"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,29 +47,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/date_input"
+        android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/ll_to_gr_gradient"
         android:gravity="center"
-        android:text="02.04.2005"
+        android:text="21"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/name"
-        android:background="@drawable/ll_to_gr_gradient" />
-
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="107dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/ll_to_gr_gradient"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

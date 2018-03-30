@@ -6,17 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class PersonAdapter extends ArrayAdapter<Person>
+public class MovieAdapter extends ArrayAdapter<Movie>
 {
     private Context context = null;
     private int layoutResId;
-    private List<Person> data = null;
+    private List<Movie> data = null;
 
-    public PersonAdapter(@NonNull Context context, int resource, @NonNull List<Person> objects)
+    public MovieAdapter(@NonNull Context context, int resource, @NonNull List<Movie> objects)
     {
         super(context, resource, objects);
         this.context = context;
@@ -31,15 +32,15 @@ public class PersonAdapter extends ArrayAdapter<Person>
 
         row = inflater.inflate(layoutResId, parent, false);
 
-        TextView nameView = row.findViewById(R.id.name);
-        TextView surnameView = row.findViewById(R.id.surname);
-        TextView ageView = row.findViewById(R.id.age);
+        TextView nameView = row.findViewById(R.id.movie_name);
+        TextView categoryView = row.findViewById(R.id.category);
+        ImageView imageView = row.findViewById(R.id.movie_image);
 
-        Person person = data.get(position);
+        Movie movie = data.get(position);
 
-        nameView.setText(person.getName());
-        surnameView.setText(person.getSurname());
-        ageView.setText(person.getAge());
+        nameView.setText(movie.getName());
+        categoryView.setText(movie.getCategory());
+        imageView.setImageResource(movie.getImageId());
 
         return row;
     }
