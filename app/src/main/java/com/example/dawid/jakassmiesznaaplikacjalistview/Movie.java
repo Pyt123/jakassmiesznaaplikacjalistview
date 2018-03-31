@@ -4,16 +4,21 @@ public class Movie
 {
     private String name;
     private String category;
-    private int imageId;
 
-    public Movie(String name, String category, int imageId)
+    private int mainImageId;
+    private int [] imageIds;
+    private Person [] actors;
+
+    public Movie(String name, String category, int mainImageId, int [] imageIds, Person [] actors)
     {
         this.name = name;
         this.category = category;
-        this.imageId = imageId;
+        this.mainImageId = mainImageId;
+        this.imageIds = imageIds;
+        this.actors = actors;
     }
 
-    public String getName()
+    public String getMovieName()
     {
         return name;
     }
@@ -23,8 +28,8 @@ public class Movie
         return category;
     }
 
-    public int getImageId()
+    public int getMainImageId()
     {
-        return imageId;
+        return mainImageId;
     }
 }

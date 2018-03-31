@@ -1,14 +1,14 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.DragEvent;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,31 +18,53 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context = null;
     private List<Movie> data = null;
 
-    public MovieAdapter(Context context, List<Movie> data)
+    public MovieAdapter(Context context, List<Movie> data, RecyclerView recyclerView)
     {
         super();
         this.context = context;
         this.data = data;
+        setSwipeToDeleteListener(recyclerView);
+    }
+
+    private void setSwipeToDeleteListener(RecyclerView recyclerView)
+    {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View row = inflater.inflate(R.layout.movie_row, parent, false);
-        Item item = new Item(row);
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final View row = inflater.inflate(R.layout.movie_row, parent, false);
+        final Item item = new Item(row);
+
+        setClickListenerForItem(item);
 
         return item;
     }
 
+    private void setClickListenerForItem(final Item item)
+    {
+        item.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                int idOfMovieInData = item.getLayoutPosition();
+                SpecificMovieActivity.start(context, idOfMovieInData);
+            }
+        });
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
     {
         Movie movie = data.get(position);
         Item item = (Item)holder;
-        item.nameView.setText(movie.getName());
+        item.nameView.setText(movie.getMovieName());
         item.categoryView.setText(movie.getCategory());
-        item.imageView.setImageResource(movie.getImageId());
+        item.imageView.setImageResource(movie.getMainImageId());
     }
 
     @Override
@@ -56,9 +78,14 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         if (viewHolder instanceof MovieAdapter.Item)
         {
-            data.remove(viewHolder.getAdapterPosition());
-            notifyItemRemoved(viewHolder.getAdapterPosition());
+            removeItemOnPosition(position);
         }
+    }
+
+    private void removeItemOnPosition(int position)
+    {
+        data.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class Item extends RecyclerView.ViewHolder

@@ -1,20 +1,18 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
-import android.media.Image;
-
 public class Person
 {
     private String name;
     private String surname;
     private int age;
-    private Image image;
+    private int imageId;
 
-    public Person(String name, String surname, int age)
+    public Person(String name, String surname, int age, int imageId)
     {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.image = image;
+        this.imageId = imageId;
     }
 
     public String getName()
@@ -32,8 +30,8 @@ public class Person
         return age;
     }
 
-    public Image getImage()
+    public int getImageId()
     {
-        return image;
+        return imageId;
     }
 }

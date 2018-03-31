@@ -21,9 +21,9 @@ public class MovieData
 
     private void initSomeData()
     {
-        Movie [] movies = { new Movie("Trailer Park Boys", "comedy", R.drawable.ricky),
-                new Movie("Kapitan Bomba", "sci-fi", R.drawable.kapitan_bomba),
-                new Movie("The Naked Gun", "comedy", R.drawable.leslie_nielsen)};
+        Movie [] movies = { new Movie("Trailer Park Boys", "comedy", R.drawable.ricky, null, null),
+                new Movie("Kapitan Bomba", "sci-fi", R.drawable.kapitan_bomba, null, null),
+                new Movie("The Naked Gun", "comedy", R.drawable.leslie_nielsen, null, null)};
 
         Random generator = new Random();
         int index = 0;

@@ -5,14 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -26,15 +20,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         setupToolbar();
-        setupAdapter();
-        setRecyclerViewListeners();
-    }
-
-    private void setRecyclerViewListeners()
-    {
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT,
-                (RecyclerItemTouchHelper.RecyclerItemTouchHelperListener)recyclerAdapter);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        setupRecyclerViewAndAdapter();
     }
 
     private void setupToolbar()
@@ -43,11 +29,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
     }
 
-    private void setupAdapter()
+    private void setupRecyclerViewAndAdapter()
     {
-        recyclerAdapter = new MovieAdapter(this, MovieData.getInstance().getData());
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAdapter = new MovieAdapter(this, MovieData.getInstance().getData(), recyclerView);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
