@@ -39,7 +39,7 @@ public class PersonAdapter extends ArrayAdapter<Person>
 
         nameView.setText(person.getName());
         surnameView.setText(person.getSurname());
-        ageView.setText(person.getAge());
+        ageView.setText(String.valueOf(person.getAge()));
 
         return row;
     }

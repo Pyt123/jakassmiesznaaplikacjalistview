@@ -5,17 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SpecificMovieActivity extends AppCompatActivity
 {
-    private static final String MOVIE_INDEX_KEY = "actor_index_key";
+    public static final String MOVIE_INDEX_KEY = "actor_index_key";
 
+    private enum FragmentState { PICS, ACTORS };
+
+    private FragmentState fragmentState = FragmentState.ACTORS;
     private Movie movie;
     private TextView nameText = null;
     private TextView categoryText = null;
     private ImageView mainImage = null;
+    private ViewGroup fragmentContainer = null;
 
     public static void start(Context context, int movieIndex)
     {
@@ -32,6 +38,9 @@ public class SpecificMovieActivity extends AppCompatActivity
         setupToolbar();
 
         setupMovieData();
+        setupFragment(fragmentState);
+        setFragmentListener();
+        int k = 0;
     }
 
     private void setupToolbar()
@@ -46,6 +55,45 @@ public class SpecificMovieActivity extends AppCompatActivity
         getMovie();
         findViews();
         setMovieDataToViews();
+    }
+
+    private void setupFragment(FragmentState fragmentStateToSet)
+    {
+        fragmentContainer = findViewById(R.id.fragment_container);
+        MovieInfoFragment fragment = null;
+        switch (fragmentStateToSet)
+        {
+            case PICS:
+                fragment = new MoviePicsFragment();
+                break;
+
+            case ACTORS:
+                fragment = new MovieActorsFragment();
+                break;
+        }
+        fragment.setArguments(getIntent().getExtras());
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    private void setFragmentListener()
+    {
+        fragmentContainer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(fragmentState == FragmentState.PICS)
+                {
+                    setupFragment(FragmentState.ACTORS);
+                    fragmentState = FragmentState.ACTORS;
+                }
+                else
+                {
+                    setupFragment(FragmentState.PICS);
+                    fragmentState = FragmentState.PICS;
+                }
+            }
+        });
     }
 
     private void getMovie()

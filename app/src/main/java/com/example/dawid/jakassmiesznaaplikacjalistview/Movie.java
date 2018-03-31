@@ -1,5 +1,9 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Movie
 {
     private String name;
@@ -7,7 +11,7 @@ public class Movie
 
     private int mainImageId;
     private int [] imageIds;
-    private Person [] actors;
+    private List<Person> actors;
 
     public Movie(String name, String category, int mainImageId, int [] imageIds, Person [] actors)
     {
@@ -15,7 +19,7 @@ public class Movie
         this.category = category;
         this.mainImageId = mainImageId;
         this.imageIds = imageIds;
-        this.actors = actors;
+        this.actors = new ArrayList<Person>(Arrays.asList(actors));
     }
 
     public String getMovieName()
@@ -31,5 +35,15 @@ public class Movie
     public int getMainImageId()
     {
         return mainImageId;
+    }
+
+    public int[] getImageIds()
+    {
+        return imageIds;
+    }
+
+    public List<Person> getActors()
+    {
+        return actors;
     }
 }

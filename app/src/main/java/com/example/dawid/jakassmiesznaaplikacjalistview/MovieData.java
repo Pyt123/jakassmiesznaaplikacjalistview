@@ -21,9 +21,16 @@ public class MovieData
 
     private void initSomeData()
     {
-        Movie [] movies = { new Movie("Trailer Park Boys", "comedy", R.drawable.ricky, null, null),
-                new Movie("Kapitan Bomba", "sci-fi", R.drawable.kapitan_bomba, null, null),
-                new Movie("The Naked Gun", "comedy", R.drawable.leslie_nielsen, null, null)};
+        Person [] actors = {new Person("Janusz", "Pawlacz", 2137, R.drawable.ricky),
+                            new Person("Jan", "Paweł", 21, R.drawable.leslie_nielsen),
+                            new Person("John", "Paul", 37, R.drawable.kapitan_bomba) };
+
+        int [] imageIds = { R.drawable.kapitan_bomba, R.drawable.leslie_nielsen, R.drawable.ricky,
+                            R.drawable.kapitan_bomba, R.drawable.leslie_nielsen, R.drawable.ricky };
+
+        Movie [] movies = { new Movie("Trailer Park Boys", "comedy", R.drawable.ricky, imageIds, actors),
+                new Movie("Kapitan Bomba", "sci-fi", R.drawable.kapitan_bomba, imageIds, actors),
+                new Movie("The Naked Gun", "comedy", R.drawable.leslie_nielsen, imageIds, actors)};
 
         Random generator = new Random();
         int index = 0;
