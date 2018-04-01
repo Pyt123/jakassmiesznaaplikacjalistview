@@ -9,9 +9,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class SpecificIMovieActivity extends AppCompatActivity
 {
@@ -21,7 +22,6 @@ public class SpecificIMovieActivity extends AppCompatActivity
     private TextView nameText = null;
     private TextView categoryText = null;
     private ImageView mainImage = null;
-    private MovieInfoFragment infoFragment = null;
 
     public static void start(Context context, int movieIndex)
     {
@@ -80,9 +80,8 @@ public class SpecificIMovieActivity extends AppCompatActivity
     {
         nameText.setText(movie.getMovieName());
         categoryText.setText(movie.getCategory());
-        mainImage.setImageResource(movie.getMainImageId());
+        Glide.with(this).load(movie.getMainImageId()).into(mainImage);
     }
-
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter
     {

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -56,6 +58,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
     {
@@ -63,7 +66,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Item item = (Item)holder;
         item.nameView.setText(movie.getMovieName());
         item.categoryView.setText(movie.getCategory());
-        item.imageView.setImageResource(movie.getMainImageId());
+        Glide.with(context).load(movie.getMainImageId()).into(item.imageView);
     }
 
     @Override

@@ -7,7 +7,7 @@ public abstract class MovieInfoFragment extends Fragment
     protected int movieIndex = -1;
     protected Movie movie = null;
 
-    public enum FragmentState { PICS, ACTORS };
+    public enum FragmentState { ACTORS, PICS };
 
     @Override
     public void onStart()

@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -34,12 +37,14 @@ public class PersonAdapter extends ArrayAdapter<Person>
         TextView nameView = row.findViewById(R.id.name);
         TextView surnameView = row.findViewById(R.id.surname);
         TextView ageView = row.findViewById(R.id.age);
+        ImageView imageView = row.findViewById(R.id.actor_pic);
 
         Person person = data.get(position);
 
         nameView.setText(person.getName());
         surnameView.setText(person.getSurname());
         ageView.setText(String.valueOf(person.getAge()));
+        Glide.with(context).load(person.getImageId()).into(imageView);
 
         return row;
     }

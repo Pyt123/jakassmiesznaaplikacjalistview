@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 public class MoviePicsFragment extends MovieInfoFragment
 {
     public MoviePicsFragment()
@@ -44,13 +46,13 @@ public class MoviePicsFragment extends MovieInfoFragment
     {
         int [] imageIds = movie.getImageIds();
 
-        ViewGroup picHolder = getView().findViewById(R.id.pic_holder);
+        /*ViewGroup picHolder = getView().findViewById(R.id.pic_holder);
         ImageView imageView;
         for(int i = 0; i < picHolder.getChildCount(); i++)
         {
             imageView = (ImageView)(picHolder.getChildAt(i));
-            imageView.setImageResource(imageIds[i]);
-        }
+            Glide.with(this).load(imageIds[i]).into(imageView);
+        }*/
     }
 
     protected void setFragmentListener()
