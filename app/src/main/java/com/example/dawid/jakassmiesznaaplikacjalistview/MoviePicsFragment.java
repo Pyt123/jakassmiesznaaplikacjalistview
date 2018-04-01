@@ -55,15 +55,6 @@ public class MoviePicsFragment extends MovieInfoFragment
 
     protected void setFragmentListener()
     {
-        getView().setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                fragmentState = FragmentState.ACTORS;
-                context.setupFragment();
-            }
-        });
     }
     /**
      * This interface must be implemented by activities that contain this

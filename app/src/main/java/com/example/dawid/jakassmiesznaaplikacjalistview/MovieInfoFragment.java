@@ -1,23 +1,13 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
-import android.app.Fragment;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v4.app.Fragment;
 
 public abstract class MovieInfoFragment extends Fragment
 {
-    public static final FragmentState DEFAULT_FRAGMENT_STATE = FragmentState.PICS;
-
     protected int movieIndex = -1;
     protected Movie movie = null;
-    protected IMovieFragmentActivity context;
 
     public enum FragmentState { PICS, ACTORS };
-    protected FragmentState fragmentState = DEFAULT_FRAGMENT_STATE;
-
-    public MovieInfoFragment()
-    {
-    }
 
     @Override
     public void onStart()
@@ -30,13 +20,15 @@ public abstract class MovieInfoFragment extends Fragment
 
     protected abstract void setFragmentListener();
 
-    public FragmentState getFragmentState()
+    public static MovieInfoFragment initFragment(FragmentState state)
     {
-        return fragmentState;
-    }
-
-    public void setContext(IMovieFragmentActivity context)
-    {
-        this.context = context;
+        switch (state)
+        {
+            case ACTORS:
+                return new MovieActorsFragment();
+            case PICS:
+                return new MoviePicsFragment();
+        }
+        return null;
     }
 }

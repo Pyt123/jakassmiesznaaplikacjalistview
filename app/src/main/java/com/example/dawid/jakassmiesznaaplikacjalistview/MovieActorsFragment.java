@@ -2,11 +2,9 @@ package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class MovieActorsFragment extends MovieInfoFragment
     public void onStart()
     {
         super.onStart();
-        initListViewWithActors();
+        setupListViewWithActors();
     }
 
     @Override
@@ -39,7 +37,7 @@ public class MovieActorsFragment extends MovieInfoFragment
         return view;
     }
 
-    private void initListViewWithActors()
+    private void setupListViewWithActors()
     {
         List<Person> actors = movie.getActors();
         ListView listView = getView().findViewById(R.id.list_view);
@@ -49,25 +47,6 @@ public class MovieActorsFragment extends MovieInfoFragment
 
     protected void setFragmentListener()
     {
-        AdapterView view = (AdapterView)getView();
-        /*view.setOnClickListener(new AdapterView.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                fragmentState = FragmentState.PICS;
-                context.setupFragment();
-            }
-        });*/
-        view.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                fragmentState = FragmentState.PICS;
-                context.setupFragment();
-            }
-        });
     }
 
     /**

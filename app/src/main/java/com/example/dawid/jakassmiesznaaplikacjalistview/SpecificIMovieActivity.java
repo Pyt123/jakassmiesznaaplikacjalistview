@@ -3,13 +3,17 @@ package com.example.dawid.jakassmiesznaaplikacjalistview;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SpecificIMovieActivity extends AppCompatActivity implements IMovieFragmentActivity
+public class SpecificIMovieActivity extends AppCompatActivity
 {
     public static final String MOVIE_INDEX_KEY = "actor_index_key";
 
@@ -18,7 +22,6 @@ public class SpecificIMovieActivity extends AppCompatActivity implements IMovieF
     private TextView categoryText = null;
     private ImageView mainImage = null;
     private MovieInfoFragment infoFragment = null;
-    private ViewGroup fragmentContainer;
 
     public static void start(Context context, int movieIndex)
     {
@@ -35,7 +38,6 @@ public class SpecificIMovieActivity extends AppCompatActivity implements IMovieF
         setupToolbar();
 
         setupMovieData();
-        fragmentContainer = findViewById(R.id.fragment_container);
         setupFragment();
     }
 
@@ -53,28 +55,12 @@ public class SpecificIMovieActivity extends AppCompatActivity implements IMovieF
         setMovieDataToViews();
     }
 
-    public void setupFragment() //TODO: cholera wie, ale ma być public póki co
+    public void setupFragment()
     {
-        MovieInfoFragment.FragmentState state = MovieInfoFragment.DEFAULT_FRAGMENT_STATE;
-        if(infoFragment != null)
-        {
-            state = infoFragment.getFragmentState();
-        }
-        switch (state)
-        {
-            case PICS:
-                infoFragment = new MoviePicsFragment();
-                break;
-
-            case ACTORS:
-                infoFragment = new MovieActorsFragment();
-                break;
-        }
-        infoFragment.setContext(this);
-        infoFragment.setArguments(getIntent().getExtras());
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, infoFragment).commit();
+        ViewPager fragmentContainer = findViewById(R.id.fragment_container);
+        ScreenSlidePagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        fragmentContainer.setAdapter(mPagerAdapter);
     }
-
 
     private void getMovie()
     {
@@ -96,9 +82,29 @@ public class SpecificIMovieActivity extends AppCompatActivity implements IMovieF
         categoryText.setText(movie.getCategory());
         mainImage.setImageResource(movie.getMainImageId());
     }
-}
 
-interface IMovieFragmentActivity
-{
-    void setupFragment();
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter
+    {
+        MovieInfoFragment.FragmentState [] states;
+        public ScreenSlidePagerAdapter(FragmentManager fm)
+        {
+            super(fm);
+            states = MovieInfoFragment.FragmentState.values();
+        }
+
+        @Override
+        public Fragment getItem(int position)
+        {
+            MovieInfoFragment fragment = MovieInfoFragment.initFragment(states[position]);
+            fragment.setArguments(getIntent().getExtras());
+            return fragment;
+        }
+
+        @Override
+        public int getCount()
+        {
+            return states.length;
+        }
+    }
 }
