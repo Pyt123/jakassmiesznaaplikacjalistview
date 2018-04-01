@@ -5,9 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
+import android.widget.GridView;
 
 public class MoviePicsFragment extends MovieInfoFragment
 {
@@ -32,7 +30,7 @@ public class MoviePicsFragment extends MovieInfoFragment
     public void onStart()
     {
         super.onStart();
-        initPics();
+        setupPicGridView();
     }
 
     @Override
@@ -42,17 +40,12 @@ public class MoviePicsFragment extends MovieInfoFragment
         return view;
     }
 
-    private void initPics()
+    private void setupPicGridView()
     {
-        int [] imageIds = movie.getImageIds();
-
-        /*ViewGroup picHolder = getView().findViewById(R.id.pic_holder);
-        ImageView imageView;
-        for(int i = 0; i < picHolder.getChildCount(); i++)
-        {
-            imageView = (ImageView)(picHolder.getChildAt(i));
-            Glide.with(this).load(imageIds[i]).into(imageView);
-        }*/
+        GridView gridView = getView().findViewById(R.id.pic_holder);
+        MoviePicsGridAdapter picsGridAdapter
+                = new MoviePicsGridAdapter(getContext(), R.layout.grid_pic_item_layout, movie.getImageIds());
+        gridView.setAdapter(picsGridAdapter);
     }
 
     protected void setFragmentListener()
