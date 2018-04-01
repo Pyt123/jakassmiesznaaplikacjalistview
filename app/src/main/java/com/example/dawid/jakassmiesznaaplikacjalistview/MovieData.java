@@ -22,8 +22,8 @@ public class MovieData
     private void initSomeData()
     {
         Person [] actors = {new Person("Janusz", "Pawlacz", 2137, R.drawable.ricky),
-                            new Person("Jan", "Paweł", 21, R.drawable.leslie_nielsen),
-                            new Person("John", "Paul", 37, R.drawable.kapitan_bomba) };
+                           /* new Person("Jan", "Paweł", 21, R.drawable.leslie_nielsen),
+                            new Person("John", "Paul", 37, R.drawable.kapitan_bomba)*/ };
 
         int [] imageIds = { R.drawable.kapitan_bomba, R.drawable.leslie_nielsen, R.drawable.ricky,
                             R.drawable.kapitan_bomba, R.drawable.leslie_nielsen, R.drawable.ricky };

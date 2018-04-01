@@ -1,7 +1,6 @@
 package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
@@ -53,7 +52,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             public void onClick(View view)
             {
                 int idOfMovieInData = item.getLayoutPosition();
-                SpecificMovieActivity.start(context, idOfMovieInData);
+                SpecificIMovieActivity.start(context, idOfMovieInData);
             }
         });
     }

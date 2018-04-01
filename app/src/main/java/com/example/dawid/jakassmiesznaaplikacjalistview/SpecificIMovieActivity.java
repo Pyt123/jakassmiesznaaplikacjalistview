@@ -5,27 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SpecificMovieActivity extends AppCompatActivity
+public class SpecificIMovieActivity extends AppCompatActivity implements IMovieFragmentActivity
 {
     public static final String MOVIE_INDEX_KEY = "actor_index_key";
 
-    private enum FragmentState { PICS, ACTORS };
-
-    private FragmentState fragmentState = FragmentState.ACTORS;
     private Movie movie;
     private TextView nameText = null;
     private TextView categoryText = null;
     private ImageView mainImage = null;
-    private ViewGroup fragmentContainer = null;
+    private MovieInfoFragment infoFragment = null;
+    private ViewGroup fragmentContainer;
 
     public static void start(Context context, int movieIndex)
     {
-        Intent starter = new Intent(context, SpecificMovieActivity.class);
+        Intent starter = new Intent(context, SpecificIMovieActivity.class);
         starter.putExtra(MOVIE_INDEX_KEY, movieIndex);
         context.startActivity(starter);
     }
@@ -38,9 +35,8 @@ public class SpecificMovieActivity extends AppCompatActivity
         setupToolbar();
 
         setupMovieData();
-        setupFragment(fragmentState);
-        setFragmentListener();
-        int k = 0;
+        fragmentContainer = findViewById(R.id.fragment_container);
+        setupFragment();
     }
 
     private void setupToolbar()
@@ -57,44 +53,28 @@ public class SpecificMovieActivity extends AppCompatActivity
         setMovieDataToViews();
     }
 
-    private void setupFragment(FragmentState fragmentStateToSet)
+    public void setupFragment() //TODO: cholera wie, ale ma być public póki co
     {
-        fragmentContainer = findViewById(R.id.fragment_container);
-        MovieInfoFragment fragment = null;
-        switch (fragmentStateToSet)
+        MovieInfoFragment.FragmentState state = MovieInfoFragment.DEFAULT_FRAGMENT_STATE;
+        if(infoFragment != null)
+        {
+            state = infoFragment.getFragmentState();
+        }
+        switch (state)
         {
             case PICS:
-                fragment = new MoviePicsFragment();
+                infoFragment = new MoviePicsFragment();
                 break;
 
             case ACTORS:
-                fragment = new MovieActorsFragment();
+                infoFragment = new MovieActorsFragment();
                 break;
         }
-        fragment.setArguments(getIntent().getExtras());
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        infoFragment.setContext(this);
+        infoFragment.setArguments(getIntent().getExtras());
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, infoFragment).commit();
     }
 
-    private void setFragmentListener()
-    {
-        fragmentContainer.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if(fragmentState == FragmentState.PICS)
-                {
-                    setupFragment(FragmentState.ACTORS);
-                    fragmentState = FragmentState.ACTORS;
-                }
-                else
-                {
-                    setupFragment(FragmentState.PICS);
-                    fragmentState = FragmentState.PICS;
-                }
-            }
-        });
-    }
 
     private void getMovie()
     {
@@ -116,4 +96,9 @@ public class SpecificMovieActivity extends AppCompatActivity
         categoryText.setText(movie.getCategory());
         mainImage.setImageResource(movie.getMainImageId());
     }
+}
+
+interface IMovieFragmentActivity
+{
+    void setupFragment();
 }

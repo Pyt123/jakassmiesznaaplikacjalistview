@@ -9,15 +9,15 @@ import android.widget.ImageView;
 
 public class MoviePicsFragment extends MovieInfoFragment
 {
+    public MoviePicsFragment()
+    {
+        super();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-    }
-
-    public MoviePicsFragment()
-    {
-        super();
     }
 
     @Override
@@ -53,6 +53,18 @@ public class MoviePicsFragment extends MovieInfoFragment
         }
     }
 
+    protected void setFragmentListener()
+    {
+        getView().setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                fragmentState = FragmentState.ACTORS;
+                context.setupFragment();
+            }
+        });
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
