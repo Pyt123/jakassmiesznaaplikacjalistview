@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,57 +9,77 @@
 
     <ImageView
         android:id="@+id/actor_pic"
-        android:layout_width="192dp"
-        android:layout_height="112dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/space"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ricky" />
+        app:srcCompat="@drawable/blank" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/ll_to_gr_gradient"
         android:gravity="center"
         android:text="imię"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/actor_pic"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/space"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/surname"
-        android:layout_width="115dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/ll_to_gr_gradient"
         android:gravity="center"
         android:text="nazwisko"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/age"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/ll_to_gr_gradient"
         android:gravity="center"
         android:text="21"
-        android:textSize="24sp"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/actor_pic"
+        app:layout_constraintEnd_toStartOf="@+id/surname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/space"
         app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

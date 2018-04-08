@@ -64,7 +64,6 @@ public class SpecificIMovieActivity extends AppCompatActivity
 
     private void getMovie()
     {
-        Bundle extras = getIntent().getExtras();
         int movieIndex = getIntent().getExtras().getInt(MOVIE_INDEX_KEY);
         movie = MovieData.getInstance().getData().get(movieIndex);
     }

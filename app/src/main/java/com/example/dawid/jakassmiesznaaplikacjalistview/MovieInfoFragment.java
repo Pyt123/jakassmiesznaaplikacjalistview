@@ -7,7 +7,7 @@ public abstract class MovieInfoFragment extends Fragment
     protected int movieIndex = -1;
     protected Movie movie = null;
 
-    public enum FragmentState { ACTORS, PICS };
+    public enum FragmentState { PICS, ACTORS };
 
     @Override
     public void onStart()
@@ -15,10 +15,7 @@ public abstract class MovieInfoFragment extends Fragment
         super.onStart();
         movieIndex = getArguments().getInt(SpecificIMovieActivity.MOVIE_INDEX_KEY);
         movie = MovieData.getInstance().getData().get(movieIndex);
-        setFragmentListener();
     }
-
-    protected abstract void setFragmentListener();
 
     public static MovieInfoFragment initFragment(FragmentState state)
     {

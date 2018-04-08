@@ -2,8 +2,6 @@ package com.example.dawid.jakassmiesznaaplikacjalistview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +32,8 @@ public class MoviePicsGridAdapter extends ArrayAdapter
 
         if (row == null)
         {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
-            holder = new ViewHolder();
-            holder.image = row.findViewById(R.id.pic);
-            row.setTag(holder);
+            row = createRow(parent);
+            holder = createNewHolder(createRow(parent));
         }
         else
         {
@@ -49,14 +44,26 @@ public class MoviePicsGridAdapter extends ArrayAdapter
         return row;
     }
 
+    private View createRow(ViewGroup parent)
+    {
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View row = inflater.inflate(layoutResourceId, parent, false);
+        return row;
+    }
+
+    private ViewHolder createNewHolder(View row)
+    {
+        ViewHolder holder = new ViewHolder();
+        holder.image = row.findViewById(R.id.pic);
+        row.setTag(holder);
+        return holder;
+    }
 
     @Override
     public int getCount()
     {
         return picResourceIds.length;
     }
-
-
 
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dawid.jakassmiesznaaplikacjalistview">
 
     <application
@@ -25,7 +26,8 @@
             android:name=".SpecificIMovieActivity"
             android:label="@string/title_activity_specific_movie"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dawid.jakassmiesznaaplikacjalistview.MainActivity" />

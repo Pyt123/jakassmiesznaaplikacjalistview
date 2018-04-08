@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class PersonAdapter extends ArrayAdapter<Person>
@@ -18,6 +20,12 @@ public class PersonAdapter extends ArrayAdapter<Person>
     private Context context = null;
     private int layoutResId;
     private List<Person> data = null;
+
+    private TextView nameView = null;
+    private TextView surnameView = null;
+    private TextView ageView = null;
+    private ImageView imageView = null;
+    private Person person = null;
 
     public PersonAdapter(@NonNull Context context, int resource, @NonNull List<Person> objects)
     {
@@ -31,21 +39,29 @@ public class PersonAdapter extends ArrayAdapter<Person>
     public View getView(final int position, View row, @NonNull ViewGroup parent)
     {
         LayoutInflater inflater = LayoutInflater.from(context);
-
+        //@SuppressWarnings(FrasStyle)
         row = inflater.inflate(layoutResId, parent, false);
 
-        TextView nameView = row.findViewById(R.id.name);
-        TextView surnameView = row.findViewById(R.id.surname);
-        TextView ageView = row.findViewById(R.id.age);
-        ImageView imageView = row.findViewById(R.id.actor_pic);
+        person = data.get(position);
+        findViews(row);
+        setProps();
 
-        Person person = data.get(position);
+        return row;
+    }
 
+    private void findViews(View row)
+    {
+        nameView = row.findViewById(R.id.name);
+        surnameView = row.findViewById(R.id.surname);
+        ageView = row.findViewById(R.id.age);
+        imageView = row.findViewById(R.id.actor_pic);
+    }
+
+    private void setProps()
+    {
         nameView.setText(person.getName());
         surnameView.setText(person.getSurname());
         ageView.setText(String.valueOf(person.getAge()));
         Glide.with(context).load(person.getImageId()).into(imageView);
-
-        return row;
     }
 }

@@ -8,7 +8,6 @@ public class Movie
 {
     private String name;
     private String category;
-
     private int mainImageId;
     private int [] imageIds;
     private List<Person> actors;
@@ -19,7 +18,7 @@ public class Movie
         this.category = category;
         this.mainImageId = mainImageId;
         this.imageIds = imageIds;
-        this.actors = new ArrayList<Person>(Arrays.asList(actors));
+        this.actors = new ArrayList<>(Arrays.asList(actors));
     }
 
     public String getMovieName()
