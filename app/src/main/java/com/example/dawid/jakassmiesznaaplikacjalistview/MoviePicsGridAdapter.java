@@ -33,7 +33,7 @@ public class MoviePicsGridAdapter extends ArrayAdapter
         if (row == null)
         {
             row = createRow(parent);
-            holder = createNewHolder(createRow(parent));
+            holder = createNewHolder(row);
         }
         else
         {

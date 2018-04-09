@@ -3,4 +3,13 @@
     <string name="action_settings">Nothing!</string>
     <string name="elo">Elo!</string>
     <string name="title_activity_specific_movie">Movie</string>
+    <string name="example_name">Example Name</string>
+    <string name="example_category">example category</string>
+    <string name="main_movie_image">main movie image</string>
+    <string name="movie_picture">movie picture</string>
+    <string name="movie_name">movie name</string>
+    <string name="category">category</string>
+    <string name="name">name</string>
+    <string name="example_age">21</string>
+    <string name="actor_picture">actor picture</string>
 </resources>
